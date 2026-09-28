@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+const {pageTitle} = Astro.props;
+
+const identity = {
+  firstName: "Alan",
+  country: "Mexico",
+  occupation: "Super Sexy Software Developer",
+  hobbies: ["Outdoor activities", "Combat training", "Videogames", "Reading"],
+};
+
+const skills = 
+    ["HTML", "CSS", "JavaScript", "React", "Astro", "Flutter"];
+
+const happy = true;
+const finished = true;
+const goal = 1;
+
+const skillColor = "blue";
+const fontWeight = "bold";
+const textCase = "uppercase";
+---
+
+<html lang="en">
+   
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+
+	</head>
+
+        
+
+
+	<body>
+        
+        
+        <Header />
+        
+        <style define:vars={{skillColor, fontWeight, textCase}}> 
+        h1 {
+            color: purple;
+            font-size: 4rem;
+        }
+        .skill {
+            color: var(--skillColor);
+            font-weight: var(--fontWeight);
+            text-transform: var(--textCase);
+        }
+        </style>
+
+
+        
+        <h1> About Me  </h1>
+
+        <p> Hi, im Omar Yañez and I am working throughg this Astro's tutorial to create my website. </p>
+        <p> Wish me luck Kegovc-chan </p>
+
+
+        <p>Here are a few facts about me:</p>
+        <ul>
+        <li>My name is {identity.firstName}.</li>
+        <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
+        {identity.hobbies.length >= 2 &&
+            <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+        }
+        </ul>
+
+        <p>My Web Skills are:</p>
+        <ul>{
+                skills.map((skills) => 
+                <li class="skill"> {skills}</li >
+            )
+        }</ul>
+
+
+        {happy && <p>I am happy to be learning Astro!</p>}
+
+        {goal === 1 ? <p>My goal is to finish in 1 hour.</p> : <p>My goal is not 1 hour.</p>} 
+
+        {finished && <p>I finished this tutorial!</p>}
+
+        <slot />
+        
+        <Footer />
+
+        <script>
+			import "../scripts/menu.js";
+		</script>
+        
+	</body>
+
+
+</html>
+

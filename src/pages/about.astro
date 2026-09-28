@@ -1,29 +1,10 @@
 ---
-
+import BaseLayout from '../layouts/AboutLayout.astro';
+const pageTitle = "About me Page";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
+<BaseLayout pageTitle={pageTitle}>
+  <h2> Layouts are so weird</h2>
 
-        <a href="/"> Home </a> <br>
-        <a href="/blog"> Blog </a>
-        
-
-		<h1> My Astro Site </h1>
-        <h2> About me </h2>
-
-        <p> Hi, im Omar Yañez and I am working throughg this Astro's tutorial to create my website. </p>
-        <p> Wish me luck Kegovc-chan </p>
-
-
-        
-	</body>
-</html>
+  <p>This is Alan from the future. It took me like 4 hours to finish this tutorial haha. 🔥T</p>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+// -----*** FILE FUNCTION  ***------
+
+//            Dynamic Routing       -    The process of creating multiple page routes from one file (this one) in Astro.
+//Basically this file search trhought all the .md files and takes the 'tags' value from all of them. Then it creates a page for all the tags, showing in those pages the post that match with the tag you're seaeching in the browser.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPost from '../../components/BlogPost.astro';
+
+//Takeaway  // USEFULL INFO
+
+//If you need information to construct the page routes, write it inside getStaticPaths().
+
+//To receive information in the HTML template of a page route, write it outside getStaticPaths().
+
+export async function getStaticPaths() {                         
+  const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));       
+
+  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+
+        return {
+            params: {tag},    // A getStaticPaths shoult always return this list 'params' - (what to call each page route)
+            props: { posts: filteredPosts }, // and optionally any props - (data that you want to pass to those pages)
+        };
+  } );
+
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const filteredPosts = posts.filter((post: any) => post.frontmatter.tags?.includes(tag));
+
+---
+
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts tagged with {tag}</p>
+  <ul>
+     {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)} 
+   </ul>
+   These tags are showed by a dinamic function btw. Im so pro. 🔥 
+
+</BaseLayout>
